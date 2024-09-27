@@ -61,18 +61,13 @@ This directory contains the Terraform configuration files for provisioning an AW
 
 ### Step 1: Build and Run the Web Server Locally
 
-1. Navigate to the webserver directory:
+1. Run docker-compose in the root directory:
    ```sh
-   cd webserver
+   docker-compose up -d
+   ```
 
-2. Install the dependencies:
-   ```sh
-   npm install
-   ```
-3. Start the web server by running the following command:
-   ```sh
-   npm start
-   ```
+2. Navigate to http://localhost:3000/ in your local web browser
+   - If you don't access to the root path or /index.html it will return a 'Not Found' error 
 
 ### Step 2: Build and Push Docker Image
 
