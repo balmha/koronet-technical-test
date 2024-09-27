@@ -73,12 +73,12 @@ This directory contains the Terraform configuration files for provisioning an AW
 
 1. Build the Docker image by running the following command:
    ```sh
-   docker build -t your-dockerhub-username/your-image-name .
+   docker build -t docker-repository/image-name .
    ```
 
 2. Push the Docker image to Docker Hub by running the following command:
    ```sh
-   docker push your-dockerhub-username/your-image-name
+   docker push docker-repository/image-name
    ```
 
 ### Step 3: Deploy to Kubernetes

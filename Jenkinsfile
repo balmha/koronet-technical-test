@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'your-dockerhub-username/your-image-name'
-        DOCKER_CREDENTIALS_ID = 'your-dockerhub-credentials-id'
-        KUBECONFIG_CREDENTIALS_ID = 'your-kubeconfig-credentials-id'
+        DOCKER_IMAGE = 'docker-repository/image-name'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id'
+        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig-credentials-id'
     }
 
     stages {
@@ -20,7 +20,6 @@ pipeline {
             steps {
                 script {
                     docker.image(DOCKER_IMAGE).inside {
-                        sh 'npm install'
                         sh 'npm test'
                     }
                 }
