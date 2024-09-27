@@ -51,11 +51,11 @@ This directory contains the Terraform configuration files for provisioning an AW
 
 ## Prerequisites
 
-- Node.js and npm installed
-- Docker installed
-- Jenkins installed and configured
-- AWS CLI configured with appropriate permissions
 - Terraform installed
+- Docker installed
+- kubectl installed
+- AWS CLI configured with appropriate permissions
+- Jenkins server (optional)
 
 ## Setup and Deployment
 
@@ -67,7 +67,7 @@ This directory contains the Terraform configuration files for provisioning an AW
    ```
 
 2. Navigate to http://localhost:3000/ in your local web browser
-   - If you don't access to the root path or /index.html it will return a 'Not Found' error 
+   - If you don't access to the root path or /index.html, it will return a 'Not Found' error 
 
 ### Step 2: Build and Push Docker Image
 
@@ -76,20 +76,12 @@ This directory contains the Terraform configuration files for provisioning an AW
    docker build -t docker-repository/image-name .
    ```
 
-2. Push the Docker image to Docker Hub by running the following command:
+2. Push the Docker image to Docker Hub or ECR by running the following command:
    ```sh
    docker push docker-repository/image-name
    ```
 
-### Step 3: Deploy to Kubernetes
-
-1. Apply the Kubernetes deployment and service YAML files:
-   ```
-   kubectl apply -f k8s/deployment.yaml
-   kubectl apply -f k8s/service.yaml
-   ```
-
-### Step 4: Provision AWS EKS Cluster with Terraform
+### Step 3: Provision AWS EKS Cluster with Terraform
 
 1. Navigate to the terraform directory:
    ```sh
@@ -106,6 +98,14 @@ This directory contains the Terraform configuration files for provisioning an AW
    terraform apply
    ```
 
+### Step 4: Deploy to Kubernetes
+
+1. Apply the Kubernetes deployment and service YAML files:
+   ```
+   kubectl apply -f k8s/deployment.yaml
+   kubectl apply -f k8s/service.yaml
+   ```
+
 # Jenkins Pipeline
 The Jenkins pipeline defined in the Jenkinsfile performs the following steps:
 
@@ -113,6 +113,11 @@ The Jenkins pipeline defined in the Jenkinsfile performs the following steps:
 - Run tests inside the Docker container.
 - Push the Docker image to Docker Hub.
 - Deploy the application to the Kubernetes cluster.
+
+# Monitoring high-level diagram
+In case that we needed to implement a monitoring solution, we could deploy Grafana + Prometheus in an isolated namespace called "monitoring", then pull metrics from webserver and redis by using Prometheus and finally show these metrics in the Grafana Dashboard using Prometheus as the Datasource.
+
+![High-level diagram of monitoring services](Monitoring-diagram.png "Monitoring high-level diagram")
 
 ### Conclusion
 This project demonstrates the integration of various tools and technologies to create a CI/CD pipeline for a Node.js web server application, deployed on an AWS EKS cluster using Terraform.
