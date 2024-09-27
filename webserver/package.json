@@ -1,0 +1,14 @@
+{
+    "name": "nodejs-app",
+    "version": "1.0.0",
+    "description": "A simple Node.js app that listens on port 3000 and returns a simple message.",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1"
+    },
+    "author": "",
+    "license": "ISC"
+  }
