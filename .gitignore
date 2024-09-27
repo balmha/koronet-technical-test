@@ -3,6 +3,6 @@
 *.tfstate.backup
 .terraform*
 terraform/.terraform
-
+.DS_Store
 
 
