@@ -5,7 +5,23 @@
 This project is a technical test for creating a web server application using Node.js, Docker, Jenkins, and Kubernetes. The application is designed to be deployed on an AWS EKS cluster using Terraform for infrastructure provisioning.
 
 ## Project Structure
-koronet-technical-test/ ├── webserver/ │ ├── app.js │ ├── package.json ├── k8s/ │ ├── deployment.yaml │ └── service.yaml ├── Jenkinsfile └── terraform/ ├── main.tf ├── variables.tf └── outputs.tf
+```bash
+├── Dockerfile
+├── Jenkinsfile
+├── README.md
+├── docker-compose.yml
+├── k8s
+│   ├── deployment.yaml
+│   └── service.yaml
+├── terraform
+│   ├── main.tf
+│   ├── outputs.tf
+│   └── variables.tf
+└── webserver
+    ├── app.js
+    ├── index.html
+    └── package.json
+```
 
 ### webserver/
 
