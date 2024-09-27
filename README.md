@@ -1,4 +1,4 @@
-# koronet-technical-test
+# Koronet - Technical Test
 
 ## Overview
 

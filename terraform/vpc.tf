@@ -1,25 +1,25 @@
-resource "aws_vpc" "main" {
-  cidr_block = "192.168.0.0/24"
+data "aws_availability_zones" "available" {}
+
+locals {
+  vpc_cidr = "10.0.0.0/16"
+  azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 }
 
-resource "aws_subnet" "public" {
-  count             = 2
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 5, count.index)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-}
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
 
-resource "aws_subnet" "private" {
-  count             = 2
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 5, count.index + 2)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-}
+  name = "koronet-vpc"
+  cidr = local.vpc_cidr
 
-#This subnets will be used for Redis
-resource "aws_subnet" "database" {
-  count             = 2
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 5, count.index + 4)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
+  azs             = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 4, k)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 48)]
+  intra_subnets   = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 52)]
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
+  }
 }

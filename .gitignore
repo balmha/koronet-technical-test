@@ -1,0 +1,8 @@
+// Ignore Terraform modules folder
+*.tfstate
+*.tfstate.backup
+.terraform*
+terraform/.terraform
+
+
+

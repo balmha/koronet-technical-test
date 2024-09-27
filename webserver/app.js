@@ -27,7 +27,7 @@ console.log('Server running at http://localhost:3000/');
 var redis = require('redis');
 var client = redis.createClient({
     port: 6379,
-    host: 'redis',
+    host: 'localhost',
     password: 'password'
 });
 
@@ -42,7 +42,9 @@ client.get('my test key', function (error, result) {
         console.log(error);
         throw error;
     }
-    console.log('GET result ->' + result);
+    else {
+        console.log('GET result ->' + result);
+    }
+    // put quiting of the client here NOT at the end of your document 
+    client.quit();
 });
-// Disconnect from the Redis client
-client.quit();
