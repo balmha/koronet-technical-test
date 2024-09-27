@@ -73,22 +73,26 @@ This directory contains the Terraform configuration files for provisioning an AW
 ### Step 3: Deploy to Kubernetes
 
 1. Apply the Kubernetes deployment and service YAML files:
-   ```kubectl apply -f k8s/deployment.yaml
+   ```
+   kubectl apply -f k8s/deployment.yaml
    kubectl apply -f k8s/service.yaml
    ```
 
 ### Step 4: Provision AWS EKS Cluster with Terraform
 
 1. Navigate to the terraform directory:
-   ```cd terraform
+   ```sh
+   cd terraform
    ```
 
 2. Initialize Terraform:
-   ```terraform init
+   ```sh
+   terraform init
    ```
 
 3. Apply the Terraform configuration:
-   ```terraform apply
+   ```sh
+   terraform apply
    ```
 
 # Jenkins Pipeline
