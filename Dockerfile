@@ -1,8 +1,13 @@
-# Description: Dockerfile for the nodejs app. The nodejs app is a simple app that listens on port 3000 and returns a simple message. The webserver files are located at ./webserver folder
+# Stage 1: Build
+FROM node:18-alpine AS build
+WORKDIR /usr/src/app
+COPY webserver/package*.json ./
+RUN npm install
+COPY webserver/ ./
 
+# Stage 2: Production
 FROM node:18-alpine
 WORKDIR /usr/src/app
-COPY webserver/ ./
-RUN npm install
+COPY --from=build /usr/src/app ./
 EXPOSE 3000
 CMD ["node", "app.js"]
