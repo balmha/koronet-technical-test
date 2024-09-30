@@ -3,8 +3,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'docker-repository/image-name'
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id'
+        DOCKER_IMAGE = 'ecr-repository/image-name'
+        ECR_CREDENTIALS_ARN = 'ecr-credentials-arn'
         KUBECONFIG_CREDENTIALS_ID = 'kubeconfig-credentials-id'
     }
 
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     def imageTag = "${env.BUILD_NUMBER}"
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                    docker.withRegistry('https://${ID}.ecr.eu-west-1.amazonaws.com', ECR_CREDENTIALS_ARN) {
                         docker.image("${DOCKER_IMAGE}:${imageTag}").push()
                         docker.image("${DOCKER_IMAGE}:latest").push()
                     }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
-                        sh 'kubectl config use-context my-cluster'  // Ensure the right context
+                        sh 'kubectl config use-context my-cluster'  // Set the right context
                         sh 'kubectl apply -f k8s/deployment.yaml'
                         sh 'kubectl apply -f k8s/service.yaml'
                     }
