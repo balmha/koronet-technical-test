@@ -13,10 +13,12 @@ This project is a technical test for creating a web server application using Nod
 ├── k8s
 │   ├── deployment.yaml
 │   └── service.yaml
+│   └── namespace.yaml
 ├── terraform
 │   ├── main.tf
 │   ├── outputs.tf
 │   └── variables.tf
+│   └── vpc.tf
 └── webserver
     ├── app.js
     ├── index.html
@@ -29,6 +31,7 @@ This directory contains the Node.js application.
 
 - `app.js`: The main application file for the Node.js web server.
 - `package.json`: Contains the dependencies and scripts for the Node.js application.
+- `index.html`: HTML output text 
 
 ### k8s/
 
@@ -36,6 +39,7 @@ This directory contains the Kubernetes deployment and service configurations.
 
 - `deployment.yaml`: The Kubernetes deployment configuration file.
 - `service.yaml`: The Kubernetes service configuration file.
+- `namespace.yaml`: The Kubernetes namespace configuration file.
 
 ### Jenkinsfile
 
@@ -46,6 +50,7 @@ The Jenkins pipeline configuration file that defines the CI/CD process, includin
 This directory contains the Terraform configuration files for provisioning an AWS EKS cluster.
 
 - `main.tf`: The main Terraform configuration file that defines the AWS resources.
+- `main.tf`: The vpc Terraform configuration file that defines the AWS VPC resources.
 - `variables.tf`: Contains the variables used in the Terraform configuration.
 - `outputs.tf`: Defines the outputs of the Terraform configuration.
 
@@ -76,7 +81,7 @@ This directory contains the Terraform configuration files for provisioning an AW
    docker build -t docker-repository/image-name .
    ```
 
-2. Push the Docker image to Docker Hub or ECR by running the following command:
+2. Push the Docker image to Docker Hub (or ECR) by running the push command:
    ```sh
    docker push docker-repository/image-name
    ```
@@ -102,6 +107,7 @@ This directory contains the Terraform configuration files for provisioning an AW
 
 1. Apply the Kubernetes deployment and service YAML files:
    ```
+   kubectl apply -f k8s/namespace.yaml
    kubectl apply -f k8s/deployment.yaml
    kubectl apply -f k8s/service.yaml
    ```
