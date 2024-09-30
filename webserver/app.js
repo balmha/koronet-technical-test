@@ -27,7 +27,7 @@ console.log('Server running at http://localhost:3000/');
 var redis = require('redis');
 var client = redis.createClient({
     port: 6379,
-    host: 'localhost',
+    host: 'redis',
     password: 'password'
 });
 

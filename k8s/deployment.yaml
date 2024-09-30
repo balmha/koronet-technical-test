@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webserver-deployment
+  namespace: koronet-test
 spec:
   replicas: 1
   selector:
@@ -24,6 +25,25 @@ spec:
           requests:
             memory: "256Mi"
             cpu: "250m"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: koronet-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
       - name: redis
         image: redis:alpine
         ports:

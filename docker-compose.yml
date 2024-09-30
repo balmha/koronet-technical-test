@@ -1,16 +1,14 @@
-#docker-compose web service should use the Dockerfile in the current directory
-
 version: '3'
 services:
   web:
-    network_mode: "host"  # Use the host's network stack
     ports:
       - "3000:3000"
     build: .
     depends_on:
       - redis
+    links:
+      - redis
   redis:
-    network_mode: "host"  # Use the host's network stack
     image: "redis:alpine"
     ports:
       - "6379:6379"
