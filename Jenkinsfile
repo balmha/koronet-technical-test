@@ -1,4 +1,5 @@
 pipeline {
+    // This code uses the next Docker Pipeline plugin: https://plugins.jenkins.io/docker-workflow/
     agent any
 
     environment {
