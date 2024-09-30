@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     def imageTag = "${env.BUILD_NUMBER}"
-                    docker.withRegistry('https://${ID}.ecr.eu-west-1.amazonaws.com', ECR_CREDENTIALS_ARN) {
+                    docker.withRegistry('https://${ID}.ecr.us-east-1.amazonaws.com', ECR_CREDENTIALS_ARN) {
                         docker.image("${DOCKER_IMAGE}:${imageTag}").push()
                         docker.image("${DOCKER_IMAGE}:latest").push()
                     }
