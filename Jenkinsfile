@@ -46,6 +46,7 @@ pipeline {
                 script {
                     withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS_ID, variable: 'KUBECONFIG')]) {
                         sh 'kubectl config use-context my-cluster'  // Set the right context
+                        sh 'kubectl apply -f k8s/namespace.yaml'
                         sh 'kubectl apply -f k8s/deployment.yaml'
                         sh 'kubectl apply -f k8s/service.yaml'
                     }
